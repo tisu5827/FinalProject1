@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CarrotMarket</string>
+    <string name="home">홈</string>
+    <string name="chatList">채팅</string>
+    <string name="myPage">마이페이지</string>
+    <string name="facebook_app_id">1414844772305130</string>
+</resources>
