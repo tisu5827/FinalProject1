@@ -69,7 +69,8 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                         buyerId = auth.currentUser!!.uid,
                         sellerId = articleModel.sellerId,
                         itemTitle = articleModel.title,
-                        key = System.currentTimeMillis()
+                        key = System.currentTimeMillis(),
+                        sell = articleModel.sell
                     )
 
                     userDB.child(auth.currentUser!!.uid)
@@ -85,7 +86,16 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
                     Snackbar.make(view, "채팅방이 생성되었습니다. 채팅탭에서 확인해주세요.", Snackbar.LENGTH_LONG).show()
 
                 } else {
-                    Snackbar.make(view, "내가 올린 아이템 입니다.", Snackbar.LENGTH_LONG).show()
+                    context?.let {
+
+                        if (auth.currentUser != null) {
+                            val intent = Intent(it, AddArticleActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            Snackbar.make(view, "로그인 후 사용해주세요.", Snackbar.LENGTH_LONG).show()
+                        }
+
+                    }
                 }
             } else {
                 Snackbar.make(view, "로그인 후 사용해주세요.", Snackbar.LENGTH_LONG).show()
