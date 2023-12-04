@@ -1,5 +1,6 @@
 package com.example.finalproject
 
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         replaceFragment(homeFragment)
 
-        bottomNavigationView.setOnNavigationItemSelectedListener {
+        bottomNavigationView.setOnNavigationItemSelectedListener() {
             when (it.itemId) {
                 R.id.home -> replaceFragment(homeFragment)
                 R.id.chatList -> replaceFragment(chatListFragment)
