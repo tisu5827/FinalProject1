@@ -45,6 +45,10 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
                     binding.emailEditText.isEnabled = true
                     binding.passwordEditText.text.clear()
                     binding.passwordEditText.isEnabled = true
+                    binding.nameEditText.text.clear()
+                    binding.nameEditText.isEnabled = true
+                    binding.birthEditText.text.clear()
+                    binding.birthEditText.isEnabled = true
 
                     binding.signInOutButton.text = "로그인"
                     binding.signInOutButton.isEnabled = false
@@ -57,14 +61,18 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
 
         fragmentMypageBinding.signUpButton.setOnClickListener {
             binding?.let { binding ->
+
                 val email = binding.emailEditText.text.toString()
                 val password = binding.passwordEditText.text.toString()
+                val name = binding.nameEditText.text.toString()
+                val birth = binding.birthEditText.text.toString()
 
-                auth.createUserWithEmailAndPassword(email, password)
+
+                auth.createUserWithEmailAndPassword(email, password )
                     .addOnCompleteListener(requireActivity()) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(context, "회원가입에 성공했습니다. 로그인 버튼을 눌러주세요.", Toast.LENGTH_SHORT).show()
-                            auth.signOut()
+                            Toast.makeText(context, "회원가입에 성공했습니다.", Toast.LENGTH_SHORT).show()
+                            successSignIn()
                         } else {
                             Toast.makeText(context, "회원가입에 실패했습니다. 이미 가입한 이메일일 수 있습니다.", Toast.LENGTH_SHORT).show()
                         }
@@ -76,17 +84,29 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
             binding?.let { binding ->
                 val enable = binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()
                 binding.signInOutButton.isEnabled = enable
-                binding.signUpButton.isEnabled = enable
             }
         }
 
         fragmentMypageBinding.passwordEditText.addTextChangedListener {
             binding?.let { binding ->
                 val enable = binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty()
-                binding.signUpButton.isEnabled = enable
                 binding.signInOutButton.isEnabled = enable
             }
         }
+        fragmentMypageBinding.nameEditText.addTextChangedListener {
+            binding?.let { binding ->
+                val enable = binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty() && binding.nameEditText.text.isNotEmpty() && binding.birthEditText.text.isNotEmpty()
+                binding.signUpButton.isEnabled = enable
+            }
+        }
+
+        fragmentMypageBinding.birthEditText.addTextChangedListener {
+            binding?.let { binding ->
+                val enable = binding.emailEditText.text.isNotEmpty() && binding.passwordEditText.text.isNotEmpty() && binding.nameEditText.text.isNotEmpty() && binding.birthEditText.text.isNotEmpty()
+                binding.signUpButton.isEnabled = enable
+            }
+        }
+
     }
 
     override fun onStart() {
@@ -98,6 +118,10 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
                 binding.emailEditText.isEnabled = true
                 binding.passwordEditText.text.clear()
                 binding.passwordEditText.isEnabled = true
+                binding.nameEditText.text.clear()
+                binding.nameEditText.isEnabled = true
+                binding.birthEditText.text.clear()
+                binding.birthEditText.isEnabled = true
 
                 binding.signInOutButton.text = "로그인"
                 binding.signInOutButton.isEnabled = false
@@ -112,7 +136,7 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
 
                 binding.signInOutButton.text = "로그아웃"
                 binding.signInOutButton.isEnabled = true
-                binding.signUpButton.isEnabled = false
+                binding.signUpButton.isEnabled = true
             }
         }
     }
@@ -124,6 +148,8 @@ class MyPageFragment: Fragment(R.layout.fragment_my_page){
         }
         binding?.emailEditText?.isEnabled = false
         binding?.passwordEditText?.isEnabled = false
+        binding?.nameEditText?.isEnabled = false
+        binding?.birthEditText?.isEnabled = false
         binding?.signUpButton?.isEnabled = false
         binding?.signInOutButton?.text = "로그아웃"
         Toast.makeText(context, "로그인에 성공했습니다.", Toast.LENGTH_SHORT).show()
