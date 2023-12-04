@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.finalproject.databinding.ItemArticleBinding
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
@@ -19,14 +18,8 @@ class ArticleAdapter(val onItemClicked: (ArticleModel) -> Unit): ListAdapter<Art
             val priceFormat = DecimalFormat("#,###")
 
             binding.titleTextView.text = articleModel.title
-            binding.dateTextView.text = format.format(date).toString()
+            binding.dateTextView.text = articleModel.sell
             binding.priceTextView.text = "${priceFormat.format(articleModel.price.toInt())}원"
-
-            if (articleModel.imageURL.isNotEmpty()) {
-                Glide.with(binding.thumbnailImageView)
-                    .load(articleModel.imageURL)
-                    .into(binding.thumbnailImageView)
-            }
 
             binding.root.setOnClickListener {
                 onItemClicked(articleModel)
